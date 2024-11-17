@@ -5,11 +5,11 @@
 	const { value }: Props = $props();
 
 	type Props = {
-		value?: number | null;
+		value: number | string;
 	};
 </script>
 
-{#if value && typeof value === 'number'}
+{#if value && typeof Number(value) === 'number'}
 	<div>
 		<Progressbar
 			animate

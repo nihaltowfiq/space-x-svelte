@@ -1,4 +1,3 @@
-import { statusCodes } from '@utils/constants';
 import axios, { AxiosError } from 'axios';
 
 export const apiClient = axios.create({
@@ -20,8 +19,6 @@ apiClient.interceptors.response.use(
 		return response;
 	},
 	async function (error: AxiosError) {
-		statusCodes;
-
 		return Promise.reject(error);
 	}
 );

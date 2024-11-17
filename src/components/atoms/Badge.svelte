@@ -15,6 +15,6 @@
 	};
 </script>
 
-<span class={`rounded-lg px-2 py-1 text-xs ${variants[color]}`}>
+<span class={`rounded-lg px-2 py-1 text-xs capitalize ${variants[color]}`}>
 	{@render children()}
 </span>

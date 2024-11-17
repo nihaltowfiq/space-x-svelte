@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { Badge, WikiLink } from '@components/atoms';
-	import { Progress } from '@components/molecules';
-	import type { dummy_table_data } from '@libs/data';
+	import { WikiLink } from '@components/atoms';
+	import { Progress, StatusBadge } from '@components/molecules';
+	import type { LandPad } from '@libs/types';
+	import { successRate } from '@utils/helpers';
 	import {
 		Table,
 		TableBody,
@@ -12,11 +13,11 @@
 		TableHeadCell
 	} from 'flowbite-svelte';
 
-	const { data }: Props = $props();
-
 	type Props = {
-		data: typeof dummy_table_data;
+		data: LandPad[];
 	};
+
+	const { data }: Props = $props();
 
 	console.log({ page: $page.url });
 </script>
@@ -33,32 +34,32 @@
 			<TableHeadCell>STATUS</TableHeadCell>
 		</TableHead>
 		<TableBody tableBodyClass="divide-y text-sm">
-			{#each data as item}
-				<TableBodyRow>
-					<TableBodyCell>{item.fullName}</TableBodyCell>
-					<TableBodyCell>{item.locationName}</TableBodyCell>
-					<TableBodyCell>{item.region}</TableBodyCell>
-					<TableBodyCell>
-						<button
-							color="light"
-							class="rounded-md border-none bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200"
-						>
-							View Details
-						</button>
-					</TableBodyCell>
-					<TableBodyCell class="text-gray-500">
-						<Progress value={item.successRate} />
-					</TableBodyCell>
-					<TableBodyCell>
-						<WikiLink href={item.wikipediaLink} />
-					</TableBodyCell>
-					<TableBodyCell>
-						<Badge color="blue">
-							{item.status}
-						</Badge>
-					</TableBodyCell>
-				</TableBodyRow>
-			{/each}
+			{#if data?.length > 0}
+				{#each data as item}
+					<TableBodyRow>
+						<TableBodyCell>{item.full_name}</TableBodyCell>
+						<TableBodyCell>{item.locality}</TableBodyCell>
+						<TableBodyCell>{item.region}</TableBodyCell>
+						<TableBodyCell>
+							<button
+								color="light"
+								class="rounded-md border-none bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200"
+							>
+								View Details
+							</button>
+						</TableBodyCell>
+						<TableBodyCell class="text-gray-500">
+							<Progress value={successRate(item.landing_attempts, item.landing_successes)} />
+						</TableBodyCell>
+						<TableBodyCell>
+							<WikiLink href={item.wikipedia} />
+						</TableBodyCell>
+						<TableBodyCell>
+							<StatusBadge status={item.status} />
+						</TableBodyCell>
+					</TableBodyRow>
+				{/each}
+			{/if}
 		</TableBody>
 	</Table>
 </div>
