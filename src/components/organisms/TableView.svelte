@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { Badge } from '@components/atoms';
-	import { dummy_table_data } from '@libs/data';
+	import type { dummy_table_data } from '@libs/data';
 	import {
 		Progressbar,
 		Table,
@@ -12,6 +13,13 @@
 	} from 'flowbite-svelte';
 	import { LinkOutline } from 'flowbite-svelte-icons';
 	import { sineOut } from 'svelte/easing';
+
+	const { data }: Props = $props();
+	type Props = {
+		data: typeof dummy_table_data;
+	};
+
+	console.log({ page: $page.url });
 </script>
 
 <div class="overflow-hidden rounded-lg border font-semibold shadow-sm">
@@ -26,11 +34,11 @@
 			<TableHeadCell>STATUS</TableHeadCell>
 		</TableHead>
 		<TableBody tableBodyClass="divide-y text-sm">
-			{#each dummy_table_data as data}
+			{#each data as item}
 				<TableBodyRow>
-					<TableBodyCell>{data.fullName}</TableBodyCell>
-					<TableBodyCell>{data.locationName}</TableBodyCell>
-					<TableBodyCell>{data.region}</TableBodyCell>
+					<TableBodyCell>{item.fullName}</TableBodyCell>
+					<TableBodyCell>{item.locationName}</TableBodyCell>
+					<TableBodyCell>{item.region}</TableBodyCell>
 					<TableBodyCell>
 						<button
 							color="light"
@@ -40,7 +48,7 @@
 						</button>
 					</TableBodyCell>
 					<TableBodyCell class="text-gray-500">
-						{#if data?.successRate}
+						{#if item?.successRate}
 							<div>
 								<Progressbar
 									animate
@@ -48,23 +56,23 @@
 									tweenDuration={1500}
 									easing={sineOut}
 									labelInside={false}
-									progress={data.successRate}
+									progress={item.successRate}
 									progressClass="bg-green-400"
 								/>
-								<p class="text-sm font-normal leading-4">{data.successRate}%</p>
+								<p class="text-sm font-normal leading-4">{item.successRate}%</p>
 							</div>
 						{:else}
 							"N/A"
 						{/if}
 					</TableBodyCell>
 					<TableBodyCell>
-						<a href={data.wikipediaLink} class="text-blue-600">
+						<a href={item.wikipediaLink} class="text-blue-600">
 							<LinkOutline />
 						</a>
 					</TableBodyCell>
 					<TableBodyCell>
 						<Badge color="blue">
-							{data.status}
+							{item.status}
 						</Badge>
 					</TableBodyCell>
 				</TableBodyRow>

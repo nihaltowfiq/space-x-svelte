@@ -16,7 +16,8 @@ const config = {
 			'@components/*': 'src/components/*',
 			'@libs': 'src/libs',
 			'@utils': 'src/utils',
-			'@services': 'src/services'
+			'@services': 'src/services',
+			'@stores': 'src/stores'
 		}
 	}
 };
