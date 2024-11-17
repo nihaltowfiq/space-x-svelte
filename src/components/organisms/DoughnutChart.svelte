@@ -14,7 +14,7 @@
 		series: [],
 		colors: ['#E74694', '#1A56DB', '#16BDCA', '#FDBA8C', '#9B1C1C', '#03543F'],
 		chart: {
-			height: 320,
+			height: 300,
 			width: '100%',
 			type: 'donut'
 		},
@@ -53,7 +53,7 @@
 		},
 		grid: {
 			padding: {
-				top: 5
+				top: -2
 			}
 		},
 		dataLabels: {
@@ -64,15 +64,17 @@
 		},
 		yaxis: {
 			labels: {
+				show: false,
 				formatter: function (value: string) {
-					return value + 'k';
+					return value + '%';
 				}
 			}
 		},
 		xaxis: {
 			labels: {
+				show: false,
 				formatter: function (value: string) {
-					return value + 'k';
+					return value + '%';
 				}
 			},
 			axisTicks: {
