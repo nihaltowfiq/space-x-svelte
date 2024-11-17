@@ -1,18 +1,20 @@
+export type Status = 'active' | 'retired' | 'under construction'; // 'under_construction'
+
 export type LandPad = {
-	name: string;
+	id: string;
 	full_name: string;
 	status: Status;
-	type: string;
-	locality: string;
+	location: Location;
+	landing_type: string;
+	attempted_landings: number;
+	successful_landings: number;
+	wikipedia: string;
+	details: string;
+};
+
+type Location = {
+	name: string;
 	region: string;
 	latitude: number;
 	longitude: number;
-	landing_attempts: number;
-	landing_successes: number;
-	wikipedia: string;
-	details: string;
-	launches: string[];
-	id: string;
 };
-
-export type Status = 'under_construction' | 'active' | 'retired' | 'under construction';

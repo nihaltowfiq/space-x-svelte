@@ -4,6 +4,6 @@ import { apiClient } from '@services/api-client';
 export const getLandPads = () => {
 	return apiClient<LandPad[]>({
 		method: 'GET',
-		url: '/v4/landpads'
+		url: '/v3/landpads'
 	});
 };

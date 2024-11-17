@@ -25,8 +25,8 @@
 <div class="overflow-hidden rounded-lg border font-semibold shadow-sm">
 	<Table hoverable>
 		<TableHead class="text-xs uppercase text-gray-500">
-			<TableHeadCell>FULL NAME</TableHeadCell>
-			<TableHeadCell>LOCATION NAME</TableHeadCell>
+			<TableHeadCell class="max-w-[10.25rem]">FULL NAME</TableHeadCell>
+			<TableHeadCell class="max-w-[10.25rem]">LOCATION NAME</TableHeadCell>
 			<TableHeadCell>REGION</TableHeadCell>
 			<TableHeadCell>DETAIL</TableHeadCell>
 			<TableHeadCell>SUCCESS RATE</TableHeadCell>
@@ -37,9 +37,17 @@
 			{#if data?.length > 0}
 				{#each data as item}
 					<TableBodyRow>
-						<TableBodyCell>{item.full_name}</TableBodyCell>
-						<TableBodyCell>{item.locality}</TableBodyCell>
-						<TableBodyCell>{item.region}</TableBodyCell>
+						<TableBodyCell>
+							<p class="max-w-[12rem] text-wrap">{item.full_name}</p>
+						</TableBodyCell>
+						<TableBodyCell>
+							<p class="max-w-[10.25rem] text-wrap" title={item.location.name}>
+								{item.location.name}
+							</p>
+						</TableBodyCell>
+						<TableBodyCell>
+							{item.location.region}
+						</TableBodyCell>
 						<TableBodyCell>
 							<button
 								color="light"
@@ -49,7 +57,7 @@
 							</button>
 						</TableBodyCell>
 						<TableBodyCell class="text-gray-500">
-							<Progress value={successRate(item.landing_attempts, item.landing_successes)} />
+							<Progress value={successRate(item.attempted_landings, item.successful_landings)} />
 						</TableBodyCell>
 						<TableBodyCell>
 							<WikiLink href={item.wikipedia} />

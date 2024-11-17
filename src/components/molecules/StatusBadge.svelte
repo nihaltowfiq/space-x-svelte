@@ -6,7 +6,6 @@
 
 	const statusMapper: Record<string, 'green' | 'red' | 'blue'> = {
 		active: 'green',
-		under_construction: 'blue',
 		'under construction': 'blue',
 		retired: 'red'
 	};

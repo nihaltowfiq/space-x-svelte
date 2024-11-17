@@ -1,55 +1,53 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { FilterByStatus, ViewSwitcher } from '@components/molecules';
-	import { GridView, Map, TableView } from '@components/organisms';
+	import { DoughnutChart, GridView, Map, TableView } from '@components/organisms';
 	import { getLandPads } from '@libs/api';
 	import { type LandPad } from '@libs/types';
 	import view from '@stores/view';
 
 	let data: LandPad[] | null = $state(null);
 	let loading: boolean = $state(true);
-	let filteredData: LandPad[] | null = $state(null);
+	let filteredData: LandPad[] = $state([]);
 
 	$effect(() => {
+		async function getData() {
+			try {
+				loading = true;
+				const res = await getLandPads();
+				if (res.status === 200) {
+					data = res.data;
+				} else {
+					throw new Error(res.statusText);
+				}
+			} catch (error) {
+				console.error('Error fetching data:', error);
+				data = null;
+			} finally {
+				loading = false;
+			}
+		}
+
 		getData();
 	});
 
 	$effect(() => {
-		if (data) {
-			filteredData = data.filter((item) =>
-				$page.url.searchParams.get('status')
-					? item.status === $page.url.searchParams.get('status')
-					: true
-			);
-		}
-	});
-
-	console.log({ filteredData });
-
-	async function getData(): Promise<void> {
-		try {
-			loading = true;
-			const res = await getLandPads();
-			if (res.status === 200) {
-				data = res.data;
-			} else {
-				throw new Error(res.statusText);
+		function filterData(status: string | null) {
+			if (data) {
+				filteredData = data.filter((item) => (status ? item.status === status : true));
 			}
-		} catch (error) {
-			console.error('Error fetching data:', error);
-			data = null;
-		} finally {
-			loading = false;
 		}
-	}
 
-	console.log($state.snapshot(data));
+		const status = $page.url.searchParams.get('status');
+		filterData(status);
+	});
 </script>
 
 <div class="grid grid-cols-12 gap-4">
 	<div class="col-span-12 lg:col-span-9">
-		<div class="mb-4 flex items-center justify-between gap-1">
+		<div class="mb-4 flex flex-col items-center justify-between gap-1 md:flex-row">
 			<ViewSwitcher />
+
 			<FilterByStatus />
 		</div>
 
@@ -59,11 +57,11 @@
 				<div class="h-6 animate-pulse rounded bg-gray-200"></div>
 				<div class="h-6 animate-pulse rounded bg-gray-200"></div>
 			</div>
-		{:else if data && data?.length > 0}
+		{:else if filteredData && filteredData?.length > 0}
 			{#if $view === 'table'}
-				<TableView data={data as LandPad[]} />
+				<TableView data={filteredData as LandPad[]} />
 			{:else}
-				<GridView data={data as LandPad[]} />
+				<GridView data={filteredData as LandPad[]} />
 			{/if}
 		{:else}
 			<div class="py-8 text-center">
@@ -71,7 +69,9 @@
 			</div>
 		{/if}
 	</div>
-	<div class="col-span-12 lg:col-span-3">
+	<div class="spacey-4 col-span-12 lg:col-span-3">
 		<Map />
+
+		<DoughnutChart data={filteredData as LandPad[]} />
 	</div>
 </div>

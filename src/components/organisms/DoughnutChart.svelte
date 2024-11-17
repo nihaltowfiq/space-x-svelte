@@ -1,0 +1,107 @@
+<script lang="ts">
+	import type { LandPad } from '@libs/types';
+	import { successRate } from '@utils/helpers';
+	import { Chart } from 'flowbite-svelte';
+
+	type Props = {
+		data: LandPad[];
+	};
+
+	const { data }: Props = $props();
+
+	let rates: number[] = $state([]);
+	let options = $state({
+		series: [],
+		colors: ['#E74694', '#1A56DB', '#16BDCA', '#FDBA8C', '#9B1C1C', '#03543F'],
+		chart: {
+			height: 320,
+			width: '100%',
+			type: 'donut'
+		},
+		stroke: {
+			colors: ['transparent'],
+			lineCap: ''
+		},
+		plotOptions: {
+			pie: {
+				donut: {
+					labels: {
+						show: true,
+						total: {
+							showAlways: true,
+							show: true,
+							label: 'Landing Pads',
+							fontFamily: 'Inter, sans-serif',
+							formatter: function () {
+								return data.length;
+							}
+						},
+						value: {
+							show: true,
+							fontFamily: 'Inter, sans-serif',
+							offsetY: -20
+						},
+						name: {
+							show: true,
+							fontFamily: 'Inter, sans-serif',
+							offsetY: 20
+						},
+						size: '80%'
+					}
+				}
+			}
+		},
+		grid: {
+			padding: {
+				top: 5
+			}
+		},
+		dataLabels: {
+			enabled: false
+		},
+		legend: {
+			show: false
+		},
+		yaxis: {
+			labels: {
+				formatter: function (value: string) {
+					return value + 'k';
+				}
+			}
+		},
+		xaxis: {
+			labels: {
+				formatter: function (value: string) {
+					return value + 'k';
+				}
+			},
+			axisTicks: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			}
+		}
+	});
+
+	$effect(() => {
+		let res = [];
+		for (let i = 0; i < data.length; i++) {
+			const element = data[i];
+			const rate = successRate(element.attempted_landings, element.successful_landings);
+			res.push(typeof parseInt(rate) === 'number' ? parseInt(rate) : 0);
+		}
+		rates = res;
+		options.series = res as never[];
+	});
+
+	$inspect(rates, data);
+</script>
+
+<div class="rounded-lg border p-4 shadow-sm">
+	<div class="py-3">
+		<p class="text-semibold">Success Rate Chart</p>
+	</div>
+
+	<Chart options={options as any} class="py-6" />
+</div>

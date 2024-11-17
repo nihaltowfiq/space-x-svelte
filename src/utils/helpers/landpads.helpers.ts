@@ -3,9 +3,11 @@ export const successRate = (attempts: number, success: number): string => {
 		return 'N/A';
 	}
 
-	const rate = (success / attempts) * 100;
+	if (attempts === 0 && success === 0) {
+		return '0';
+	}
 
-	console.log({ rate: rate.toFixed(2) });
+	const rate = (success / attempts) * 100;
 
 	return rate.toFixed(0);
 };
