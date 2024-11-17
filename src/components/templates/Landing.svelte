@@ -1,5 +1,5 @@
 <script>
-	import { ViewSwitcher } from '@components/molecules';
+	import { FilterByStatus, ViewSwitcher } from '@components/molecules';
 	import { GridView, Map, TableView } from '@components/organisms';
 	import { dummy_table_data } from '@libs/data';
 	import view from '@stores/view';
@@ -7,8 +7,10 @@
 
 <div class="grid grid-cols-12 gap-4">
 	<div class="col-span-12 lg:col-span-9">
-		<div class="mb-4 flex items-center justify-between gap-3">
+		<div class="mb-4 flex items-center justify-between gap-1">
 			<ViewSwitcher />
+
+			<FilterByStatus />
 		</div>
 
 		{#if $view === 'table'}

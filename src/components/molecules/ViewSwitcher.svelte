@@ -5,10 +5,18 @@
 </script>
 
 <ButtonGroup>
-	<Button onclick={() => view.set('table')}>
-		<ListOutline class={`${$view === 'table' && 'text-blue-600'}`} />
+	<Button
+		color="alternative"
+		onclick={() => view.set('table')}
+		class={`py-[0.45rem] ${$view === 'table' && 'bg-gray-100 text-blue-600'}`}
+	>
+		<ListOutline class="h-5 w-5" />
 	</Button>
-	<Button onclick={() => view.set('grid')}>
-		<GridSolid class={`${$view === 'grid' && 'text-blue-600'}`} />
+	<Button
+		color="alternative"
+		onclick={() => view.set('grid')}
+		class={`py-[0.45rem] ${$view === 'grid' && 'bg-gray-100 text-blue-600'}`}
+	>
+		<GridSolid class="h-5 w-5" />
 	</Button>
 </ButtonGroup>
