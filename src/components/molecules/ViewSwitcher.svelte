@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import view from '@stores/view';
 	import { Button, ButtonGroup } from 'flowbite-svelte';
 	import { GridSolid, ListOutline } from 'flowbite-svelte-icons';

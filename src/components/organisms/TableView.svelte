@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { Badge } from '@components/atoms';
+	import { Badge, WikiLink } from '@components/atoms';
+	import { Progress } from '@components/molecules';
 	import type { dummy_table_data } from '@libs/data';
 	import {
-		Progressbar,
 		Table,
 		TableBody,
 		TableBodyCell,
@@ -11,10 +11,9 @@
 		TableHead,
 		TableHeadCell
 	} from 'flowbite-svelte';
-	import { LinkOutline } from 'flowbite-svelte-icons';
-	import { sineOut } from 'svelte/easing';
 
 	const { data }: Props = $props();
+
 	type Props = {
 		data: typeof dummy_table_data;
 	};
@@ -48,27 +47,10 @@
 						</button>
 					</TableBodyCell>
 					<TableBodyCell class="text-gray-500">
-						{#if item?.successRate}
-							<div>
-								<Progressbar
-									animate
-									precision={2}
-									tweenDuration={1500}
-									easing={sineOut}
-									labelInside={false}
-									progress={item.successRate}
-									progressClass="bg-green-400"
-								/>
-								<p class="text-sm font-normal leading-4">{item.successRate}%</p>
-							</div>
-						{:else}
-							"N/A"
-						{/if}
+						<Progress value={item.successRate} />
 					</TableBodyCell>
 					<TableBodyCell>
-						<a href={item.wikipediaLink} class="text-blue-600">
-							<LinkOutline />
-						</a>
+						<WikiLink href={item.wikipediaLink} />
 					</TableBodyCell>
 					<TableBodyCell>
 						<Badge color="blue">
