@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Badge from '@components/atoms/Badge.svelte';
+	import { Badge } from '@components/atoms';
 	import { dummy_table_data } from '@libs/data';
 	import {
 		Progressbar,

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Map from '@components/sections/Map.svelte';
-	import TableView from '@components/sections/TableView.svelte';
+	import { Map, TableView } from '@components/sections';
 </script>
 
 <div class="grid grid-cols-12 gap-4">

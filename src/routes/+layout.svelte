@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Navbar, NavBrand } from 'flowbite-svelte';
 	import '../app.css';
-	let { children } = $props();
+	const { children } = $props();
 </script>
 
 <Navbar border class="py-4">
