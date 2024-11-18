@@ -114,7 +114,7 @@
 	</div>
 
 	{#if loading}
-		<div class="py-6 text-center">
+		<div class="flex h-[300px] items-center justify-center py-6 text-center">
 			<Spinner color="blue" />
 		</div>
 	{:else}
