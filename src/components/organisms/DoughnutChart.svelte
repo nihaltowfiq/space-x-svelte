@@ -108,7 +108,7 @@
 	});
 </script>
 
-<div class="rounded-lg border p-4 shadow-sm">
+<div class="mt-4 rounded-lg border p-4 shadow-sm">
 	<div class="py-3">
 		<p class="text-semibold">Success Rate Chart</p>
 	</div>

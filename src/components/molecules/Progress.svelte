@@ -7,8 +7,6 @@
 	type Props = {
 		value: number | string;
 	};
-
-	console.log({ value });
 </script>
 
 {#if value && typeof Number(value) === 'number'}
