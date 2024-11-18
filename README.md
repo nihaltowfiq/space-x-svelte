@@ -1,5 +1,9 @@
 # SpaceX Svelte Project:
 
+### [Live Demo](https://space-x-svelte.netlify.app/)
+
+`url: https://space-x-svelte.netlify.app/`
+
 ## Instructions
 
 1. Clone the repository.
