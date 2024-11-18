@@ -22,12 +22,12 @@
 <div class="overflow-hidden rounded-lg border font-semibold shadow-sm">
 	<Table hoverable>
 		<TableHead class="text-xs uppercase text-gray-500">
-			<TableHeadCell class="max-w-[10.25rem]">FULL NAME</TableHeadCell>
-			<TableHeadCell class="max-w-[10.25rem]">LOCATION NAME</TableHeadCell>
+			<TableHeadCell>FULL NAME</TableHeadCell>
+			<TableHeadCell class="xl:min-w-[9rem]">LOCATION NAME</TableHeadCell>
 			<TableHeadCell>REGION</TableHeadCell>
 			<TableHeadCell>DETAIL</TableHeadCell>
-			<TableHeadCell>SUCCESS RATE</TableHeadCell>
-			<TableHeadCell>WIKIPEDIA LINK</TableHeadCell>
+			<TableHeadCell class="xl:min-w-[9rem]">SUCCESS RATE</TableHeadCell>
+			<TableHeadCell class="xl:min-w-[9rem]">WIKIPEDIA LINK</TableHeadCell>
 			<TableHeadCell>STATUS</TableHeadCell>
 		</TableHead>
 		<TableBody tableBodyClass="divide-y text-sm">
@@ -35,10 +35,10 @@
 				{#each data as item}
 					<TableBodyRow>
 						<TableBodyCell>
-							<p class="max-w-[12rem] text-wrap">{item.full_name}</p>
+							<p class="max-w-[10rem] text-wrap xl:min-w-[8em]">{item.full_name}</p>
 						</TableBodyCell>
 						<TableBodyCell>
-							<p class="max-w-[10.25rem] text-wrap" title={item.location.name}>
+							<p class="max-w-[10.25rem] text-wrap xl:min-w-[8rem]" title={item.location.name}>
 								{item.location.name}
 							</p>
 						</TableBodyCell>
