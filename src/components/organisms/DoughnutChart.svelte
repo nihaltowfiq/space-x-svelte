@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { LandPad } from '@libs/types';
 	import { successRate } from '@utils/helpers';
+	import type { ApexOptions } from 'apexcharts';
 	import { Chart, Spinner } from 'flowbite-svelte';
 
 	type Props = {
@@ -10,9 +11,9 @@
 
 	const { data, loading }: Props = $props();
 
-	let options = $state({
-		series: [],
+	let options: ApexOptions = $state({
 		labels: [],
+		series: [],
 		colors: ['#E74694', '#1A56DB', '#16BDCA', '#FDBA8C', '#9B1C1C', '#03543F'],
 		chart: {
 			height: 300,
@@ -20,18 +21,25 @@
 			type: 'donut'
 		},
 		stroke: {
-			colors: [],
-			lineCap: 'round'
+			colors: ['#f2f2f2'],
+			lineCap: 'butt'
 		},
 		plotOptions: {
 			pie: {
 				donut: {
 					labels: {
 						show: true,
+						name: {
+							show: true,
+							offsetY: 20
+						},
 						total: {
 							showAlways: true,
 							show: true,
 							label: 'Landing Pads',
+							fontSize: '16',
+							fontWeight: 400,
+							color: '#6B7280',
 							fontFamily: 'Inter, sans-serif',
 							formatter: function () {
 								return String(data.length);
@@ -39,22 +47,12 @@
 						},
 						value: {
 							show: true,
-							fontFamily: 'Inter, sans-serif',
-							offsetY: -20
-						},
-						name: {
-							show: true,
-							fontFamily: 'Inter, sans-serif',
-							offsetY: 20
-						},
-						size: '100%'
-					}
+							offsetY: -20,
+							fontWeight: 700
+						}
+					},
+					size: '80%'
 				}
-			}
-		},
-		grid: {
-			padding: {
-				top: -2
 			}
 		},
 		dataLabels: {
@@ -62,28 +60,6 @@
 		},
 		legend: {
 			show: false
-		},
-		yaxis: {
-			labels: {
-				show: false,
-				formatter: function (value: string) {
-					return value + '%';
-				}
-			}
-		},
-		xaxis: {
-			labels: {
-				show: false,
-				formatter: function (value: string) {
-					return value + '%';
-				}
-			},
-			axisTicks: {
-				show: false
-			},
-			axisBorder: {
-				show: false
-			}
 		}
 	});
 
@@ -100,16 +76,18 @@
 		options.series = res as never[];
 		options.labels = lebs as never[];
 
-		if (res.length > 1) {
-			options.stroke.colors = ['transparent'] as never[];
-		} else {
-			options.stroke.colors = ['#f2f2f2'] as never[];
+		if (options.stroke) {
+			if (res.length > 1) {
+				options.stroke.colors = ['transparent'];
+			} else {
+				options.stroke.colors = ['#f2f2f2'];
+			}
 		}
 	});
 </script>
 
 <div class="mt-4 rounded-lg border p-4 shadow-sm">
-	<div class="py-3">
+	<div class="pb-0">
 		<p class="text-semibold">Success Rate Chart</p>
 	</div>
 
