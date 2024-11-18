@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { LandPad } from '@libs/types';
 	import { successRate } from '@utils/helpers';
-	import type { ApexOptions } from 'apexcharts';
 	import { Chart, Spinner } from 'flowbite-svelte';
 
 	type Props = {
@@ -11,7 +10,7 @@
 
 	const { data, loading }: Props = $props();
 
-	let options: ApexOptions = $state({
+	let options = $state({
 		labels: [],
 		series: [],
 		colors: ['#E74694', '#1A56DB', '#16BDCA', '#FDBA8C', '#9B1C1C', '#03543F'],
@@ -60,6 +59,28 @@
 		},
 		legend: {
 			show: false
+		},
+		yaxis: {
+			labels: {
+				show: false,
+				formatter: function (value: number) {
+					return value + '%';
+				}
+			}
+		},
+		xaxis: {
+			labels: {
+				show: false,
+				formatter: function (value: number) {
+					return value + '%';
+				}
+			},
+			axisTicks: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			}
 		}
 	});
 
@@ -73,8 +94,8 @@
 			lebs.push(element.full_name);
 			res.push(typeof parseInt(rate) === 'number' ? parseInt(rate) : 0);
 		}
-		options.series = res as never[];
-		options.labels = lebs as never[];
+		options.series = res as any;
+		options.labels = lebs as any;
 
 		if (options.stroke) {
 			if (res.length > 1) {
