@@ -4,6 +4,6 @@
 	const { href }: { href: string } = $props();
 </script>
 
-<a {href} class="text-blue-600">
+<a {href} target="_blank" class="text-blue-600">
 	<LinkOutline />
 </a>

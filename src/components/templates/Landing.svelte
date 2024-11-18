@@ -72,6 +72,6 @@
 	<div class="spacey-4 col-span-12 lg:col-span-3">
 		<Map />
 
-		<DoughnutChart data={filteredData as LandPad[]} />
+		<DoughnutChart {loading} data={filteredData as LandPad[]} />
 	</div>
 </div>

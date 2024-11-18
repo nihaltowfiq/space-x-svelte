@@ -1,17 +1,19 @@
 <script lang="ts">
 	import type { LandPad } from '@libs/types';
 	import { successRate } from '@utils/helpers';
-	import { Chart } from 'flowbite-svelte';
+	import { Chart, Spinner } from 'flowbite-svelte';
 
 	type Props = {
 		data: LandPad[];
+		loading: boolean;
 	};
 
-	const { data }: Props = $props();
+	const { data, loading }: Props = $props();
 
 	let rates: number[] = $state([]);
 	let options = $state({
 		series: [],
+		labels: [],
 		colors: ['#E74694', '#1A56DB', '#16BDCA', '#FDBA8C', '#9B1C1C', '#03543F'],
 		chart: {
 			height: 300,
@@ -19,8 +21,8 @@
 			type: 'donut'
 		},
 		stroke: {
-			colors: ['transparent'],
-			lineCap: ''
+			colors: ['#f2f2f2'],
+			lineCap: 'round'
 		},
 		plotOptions: {
 			pie: {
@@ -46,7 +48,7 @@
 							fontFamily: 'Inter, sans-serif',
 							offsetY: 20
 						},
-						size: '80%'
+						size: '100%'
 					}
 				}
 			}
@@ -88,13 +90,17 @@
 
 	$effect(() => {
 		let res = [];
+		let lebs = [];
+
 		for (let i = 0; i < data.length; i++) {
 			const element = data[i];
 			const rate = successRate(element.attempted_landings, element.successful_landings);
+			lebs.push(element.full_name);
 			res.push(typeof parseInt(rate) === 'number' ? parseInt(rate) : 0);
 		}
 		rates = res;
 		options.series = res as never[];
+		options.labels = lebs as never[];
 	});
 
 	$inspect(rates, data);
@@ -105,5 +111,11 @@
 		<p class="text-semibold">Success Rate Chart</p>
 	</div>
 
-	<Chart options={options as any} class="py-6" />
+	{#if loading}
+		<div class="py-6 text-center">
+			<Spinner color="blue" />
+		</div>
+	{:else}
+		<Chart options={options as any} class="py-6" />
+	{/if}
 </div>
