@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Progress, StatusBadge } from '@components/molecules';
+	import { DetailsModal, Progress, StatusBadge } from '@components/molecules';
 	import type { LandPad } from '@libs/types';
 	import { successRate } from '@utils/helpers';
 
@@ -27,12 +27,7 @@
 				<a href={item.wikipedia} target="_blank" class="text-sm text-blue-500 hover:underline">
 					Wikipedia Link
 				</a>
-				<button
-					color="light"
-					class="rounded-md border-none bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200"
-				>
-					View Details
-				</button>
+				<DetailsModal title={item.full_name} details={item.details} />
 			</div>
 		</div>
 	{/each}

@@ -45,7 +45,7 @@
 
 <div class="grid grid-cols-12 gap-4">
 	<div class="col-span-12 lg:col-span-9">
-		<div class="mb-4 flex flex-col items-center justify-between gap-1 md:flex-row">
+		<div class="mb-4 flex items-center justify-between gap-1">
 			<ViewSwitcher />
 
 			<FilterByStatus />

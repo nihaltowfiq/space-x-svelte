@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { WikiLink } from '@components/atoms';
-	import { Progress, StatusBadge } from '@components/molecules';
+	import { DetailsModal, Progress, StatusBadge } from '@components/molecules';
 	import type { LandPad } from '@libs/types';
 	import { successRate } from '@utils/helpers';
 	import {
@@ -18,8 +17,6 @@
 	};
 
 	const { data }: Props = $props();
-
-	console.log({ page: $page.url });
 </script>
 
 <div class="overflow-hidden rounded-lg border font-semibold shadow-sm">
@@ -49,12 +46,7 @@
 							{item.location.region}
 						</TableBodyCell>
 						<TableBodyCell>
-							<button
-								color="light"
-								class="rounded-md border-none bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200"
-							>
-								View Details
-							</button>
+							<DetailsModal title={item.full_name} details={item.details} />
 						</TableBodyCell>
 						<TableBodyCell class="text-gray-500">
 							<Progress value={successRate(item.attempted_landings, item.successful_landings)} />

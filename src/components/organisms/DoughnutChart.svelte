@@ -10,7 +10,6 @@
 
 	const { data, loading }: Props = $props();
 
-	let rates: number[] = $state([]);
 	let options = $state({
 		series: [],
 		labels: [],
@@ -21,7 +20,7 @@
 			type: 'donut'
 		},
 		stroke: {
-			colors: ['#f2f2f2'],
+			colors: [],
 			lineCap: 'round'
 		},
 		plotOptions: {
@@ -35,7 +34,7 @@
 							label: 'Landing Pads',
 							fontFamily: 'Inter, sans-serif',
 							formatter: function () {
-								return data.length;
+								return String(data.length);
 							}
 						},
 						value: {
@@ -98,12 +97,15 @@
 			lebs.push(element.full_name);
 			res.push(typeof parseInt(rate) === 'number' ? parseInt(rate) : 0);
 		}
-		rates = res;
 		options.series = res as never[];
 		options.labels = lebs as never[];
-	});
 
-	$inspect(rates, data);
+		if (res.length > 1) {
+			options.stroke.colors = ['transparent'] as never[];
+		} else {
+			options.stroke.colors = ['#f2f2f2'] as never[];
+		}
+	});
 </script>
 
 <div class="rounded-lg border p-4 shadow-sm">

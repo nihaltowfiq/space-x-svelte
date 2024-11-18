@@ -5,7 +5,7 @@
 	import { Button, Dropdown, DropdownItem, Radio } from 'flowbite-svelte';
 	import { AdjustmentsVerticalSolid, ChevronDownOutline } from 'flowbite-svelte-icons';
 
-	let isDropdownOpen = false;
+	let isDropdownOpen = $state(false);
 
 	const handleFilter = (value: string) => {
 		const searchParams = new URLSearchParams($page.url.searchParams);
